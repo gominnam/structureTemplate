@@ -9,6 +9,7 @@ class LinkedList {
         Node next = null;
     }
 
+    // 링크드리스트 생성
     LinkedList() {
         header = new Node();
     }
@@ -48,20 +49,42 @@ class LinkedList {
         System.out.println(n.data);
     }
 
-    public static class LinkedListNode{
-        public static void main(String[] args){
-            LinkedList li = new LinkedList();
-
-            li.append(1);
-            li.append(2);
-            li.append(3);
-            li.append(4);
-            li.retrieve();
-
-            li.delete(1);
-            li.retrieve();
+    // 중복 숫자 제거
+    void removeDups() {
+        Node n = header;
+        while (n.next != null) {
+            Node r = n;
+            while (r.next != null) {
+                if (n.data == r.next.data) {
+                    r.next = r.next.next;
+                } else {
+                    r = r.next;
+                }
+            }
+            n = n.next;
         }
     }
 
+    public static class RemoveDups {
+        public static void main(String[] args) {
+            LinkedList li = new LinkedList();
+            li.append(2);
+            li.append(1);
+            li.append(3);
+            li.append(2);
+            li.append(4);
+//            li.append(1);
+//            li.append(4);
+
+            li.retrieve();
+
+            li.removeDups();
+            li.retrieve();
+        }
+    }
 }
+
+
+
+
 

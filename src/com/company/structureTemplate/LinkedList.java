@@ -52,7 +52,7 @@ class LinkedList {
     // 중복 숫자 제거
     void removeDups() {
         Node n = header;
-        while (n.next != null) {
+        while (n != null) { // 여기 n에서 n.next 한 경우 왜 안되는지 모르겠음.
             Node r = n;
             while (r.next != null) {
                 if (n.data == r.next.data) {
@@ -73,8 +73,9 @@ class LinkedList {
             li.append(3);
             li.append(2);
             li.append(4);
-//            li.append(1);
-//            li.append(4);
+            // 위 removeDups 주석 부분대로 코드를 바꾸면 아래 2줄이 에러 발생함.
+            li.append(1);
+            li.append(4);
 
             li.retrieve();
 

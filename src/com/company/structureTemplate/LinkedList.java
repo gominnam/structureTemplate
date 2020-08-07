@@ -52,7 +52,7 @@ class LinkedList {
     // 중복 숫자 제거
     void removeDups() {
         Node n = header;
-        while (n != null) { // 여기 n에서 n.next 한 경우 왜 안되는지 모르겠음.
+        while (n != null) { // n.next 는 error
             Node r = n;
             while (r.next != null) {
                 if (n.data == r.next.data) {
@@ -65,22 +65,85 @@ class LinkedList {
         }
     }
 
-    public static class RemoveDups {
+    // ------------------------ here count backward methods
+    // backwardCount Basic method way:1
+    private static Node KthToLast(Node first, int k){ // first에 header
+        Node n = first;
+        int total = 1;
+        while(n.next != null){
+            total++;
+            n = n.next;
+        }
+
+        n = first;
+        for(int i = 1; i < total - k + 1; i++){
+            n = n.next;
+        }
+        return n;
+    }
+
+    // JAVA는 pass by reference가 안되므로 객체를 스택에 넣어 그 값을 이용하는 방식으로 사용한다.
+    static class Reference{
+        public int count;
+    }
+
+    // backwardCount Basic method way:2
+    private static Node KthToLast2(Node n, int k, Reference r){
+        if(n == null){
+            return null;
+        }
+
+        Node found = KthToLast2(n.next, k, r);
+        r.count++;
+        if(r.count == k){
+            return n;
+        }
+        return found;
+    }
+
+    // backwardCount Basic method way:3
+    private static Node KthToLast3(Node first, int k){
+        Node p1 = first;
+        Node p2 = first;
+
+        for(int i = 0; i < k; i++){
+            if(p1 == null) return null;
+            p1 = p1.next;
+        }
+
+        while(p1 != null){
+            p1 = p1.next;
+            p2 = p2.next;
+        }
+        return p2;
+    }
+
+    public static class LinkedListCountBackwards {
         public static void main(String[] args) {
             LinkedList li = new LinkedList();
-            li.append(2);
             li.append(1);
+            li.append(4);
+            li.append(2);
             li.append(3);
-            li.append(2);
-            li.append(4);
-            // 위 removeDups 주석 부분대로 코드를 바꾸면 아래 2줄이 에러 발생함.
-            li.append(1);
-            li.append(4);
-
             li.retrieve();
 
-            li.removeDups();
-            li.retrieve();
+//            방법 3
+//            int k = 3;
+//            Node found = KthToLast3(li.header, k);
+//            System.out.println(found.data);
+
+//            방법 2
+//            int k = 3;
+//            Reference r = new Reference();
+//            Node found = KthToLast2(li.header, k, r);
+//            System.out.println(found.data);
+
+
+//            방법 1
+            Node first = li.header;
+            int k = 4;
+            Node kth = KthToLast(first, k);
+            System.out.println("Last K(" + k + ")th data is " + kth.data);
         }
     }
 }

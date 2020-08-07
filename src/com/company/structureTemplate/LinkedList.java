@@ -4,6 +4,19 @@ package com.company.structureTemplate;
 class LinkedList {
     Node header;
 
+    // 삭제할 노드 위치의 정보 갖고오는 매서드
+    public Node get(int n) {
+        int count = 0;
+        Node node = this.header;
+
+        while(count != n){
+            count ++;
+            node = node.next;
+        }
+
+        return node;
+    }
+
     static class Node {
         int data;
         Node next = null;
@@ -65,57 +78,16 @@ class LinkedList {
         }
     }
 
-    // ------------------------ here count backward methods
-    // backwardCount Basic method way:1
-    private static Node KthToLast(Node first, int k){ // first에 header
-        Node n = first;
-        int total = 1;
-        while(n.next != null){
-            total++;
-            n = n.next;
+    // 단점은 처음과 끝은 지우지 못한다.
+    private static boolean deleteNode(Node n){
+        if(n == null || n.next == null){
+            return false;
         }
+        Node next = n.next;
+        n.data = next.data;
+        n.next = next.next;
 
-        n = first;
-        for(int i = 1; i < total - k + 1; i++){
-            n = n.next;
-        }
-        return n;
-    }
-
-    // JAVA는 pass by reference가 안되므로 객체를 스택에 넣어 그 값을 이용하는 방식으로 사용한다.
-    static class Reference{
-        public int count;
-    }
-
-    // backwardCount Basic method way:2
-    private static Node KthToLast2(Node n, int k, Reference r){
-        if(n == null){
-            return null;
-        }
-
-        Node found = KthToLast2(n.next, k, r);
-        r.count++;
-        if(r.count == k){
-            return n;
-        }
-        return found;
-    }
-
-    // backwardCount Basic method way:3
-    private static Node KthToLast3(Node first, int k){
-        Node p1 = first;
-        Node p2 = first;
-
-        for(int i = 0; i < k; i++){
-            if(p1 == null) return null;
-            p1 = p1.next;
-        }
-
-        while(p1 != null){
-            p1 = p1.next;
-            p2 = p2.next;
-        }
-        return p2;
+        return true;
     }
 
     public static class LinkedListCountBackwards {
@@ -127,25 +99,11 @@ class LinkedList {
             li.append(3);
             li.retrieve();
 
-//            방법 3
-//            int k = 3;
-//            Node found = KthToLast3(li.header, k);
-//            System.out.println(found.data);
-
-//            방법 2
-//            int k = 3;
-//            Reference r = new Reference();
-//            Node found = KthToLast2(li.header, k, r);
-//            System.out.println(found.data);
-
-
-//            방법 1
-            Node first = li.header;
-            int k = 4;
-            Node kth = KthToLast(first, k);
-            System.out.println("Last K(" + k + ")th data is " + kth.data);
+            deleteNode(li.get(2));
+            li.retrieve();
         }
     }
+
 }
 
 

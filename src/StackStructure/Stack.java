@@ -2,7 +2,7 @@ package StackStructure;
 
 import java.util.EmptyStackException;
 
-public class Stack<T> {
+public class Stack<T> { // generic type
 
     class Node<T>{
         private T data;
@@ -31,7 +31,7 @@ public class Stack<T> {
         top = t;
     }
 
-    public T peak() {
+    public T peek() {
         if (top == null) {
             throw new EmptyStackException();
         }

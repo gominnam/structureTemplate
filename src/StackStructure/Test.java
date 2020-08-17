@@ -11,7 +11,7 @@ public class Test {
 
         System.out.println(stack.pop());
         System.out.println(stack.pop());
-        System.out.println(stack.peak());
+        System.out.println(stack.peek());
         System.out.println(stack.pop());
         System.out.println(stack.isEmpty());
         System.out.println(stack.pop());

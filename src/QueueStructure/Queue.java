@@ -4,40 +4,66 @@ import java.util.NoSuchElementException;
 
 public class Queue<T> {
 
+    private Node<T> first;
+    private Node<T> last;
+
+    // nested class
     class Node<T>{
         private T data;
         private Node<T> next;
 
-        public Node(T data){
+        public Node(T data){ // init
             this.data = data;
         }
     }
 
-    private Node<T> first;
-    private Node<T> last;
+//    public void add(T item){
+//        Node<T> t = new Node<T>(item);
+//
+//        if(last != null){
+//            last.next = t;
+//        }
+//        last = t;
+//        if(first == null){
+//            first = last;
+//        }
+//    }
 
     public void add(T item){
-        Node<T> t = new Node<T>(item);
+        Node<T> n = new Node<T>(item);
 
-        if(last != null){
-            last.next = t;
-        }
-        last = t;
         if(first == null){
-            first = last;
+            first = n;
+            last = n;
+        } else {
+            last.next = n;
+            last = n;
         }
     }
 
+//    public T remove(){
+//        if(first == null){
+//            throw new NoSuchElementException();
+//        }
+//
+//        T data = first.data;
+//        first = first.next;
+//
+//        if(first == null){
+//            last = null;
+//        }
+//
+//        return data;
+//    }
+
     public T remove(){
-        if(first == null){
+        T data;
+
+        if(first != null){
+            data = first.data;
+            first = first.next;
+        }else{
             throw new NoSuchElementException();
-        }
-
-        T data = first.data;
-        first = first.next;
-
-        if(first == null){
-            last = null;
         }
 
         return data;

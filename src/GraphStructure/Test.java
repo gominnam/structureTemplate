@@ -38,6 +38,14 @@ public class Test {
         g.addEdge(5, 7);
         g.addEdge(6, 8);
 
-        g.dfsR();
+//        g.dfsR(g.nodes[1]); g.nodes[1] == 1
+
+//        System.out.println(g.nodes[0].data);
+        System.out.println(g.nodes[1].marked); // false
+
+        g.dfs();
+
+        System.out.println();
+        System.out.println(g.nodes[1].marked); // true
     }
 }

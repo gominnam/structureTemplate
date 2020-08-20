@@ -26,7 +26,7 @@ public class Graph {
         }
     }
 
-    void addEdge(int i1, int i2){
+    void addEdge(int i1, int i2){ // bridge
         Node n1 = nodes[i1];
         Node n2 = nodes[i2];
 
@@ -47,7 +47,8 @@ public class Graph {
         Stack<Node> stack = new Stack<Node>();
         stack.push(root);
         root.marked = true;
-        while(!stack.isEmpty()){
+
+        while(!stack.isEmpty()){ // top is not null?
             Node r = stack.pop();
             for(Node n : r.adjacent){
                 if(n.marked == false){
@@ -84,7 +85,7 @@ public class Graph {
     void dfsR(Node r){ // dfs - Recursive
         if(r == null) return;
         r.marked = true;
-        visit(r);
+        visit(r); // 바로 출력
         for(Node n : r.adjacent){
             if(n.marked == false){
                 dfsR(n);
@@ -102,6 +103,6 @@ public class Graph {
     }
 
     void visit(Node n){
-        System.out.println(n.data + " ");
+        System.out.print(n.data + " ");
     }
 }

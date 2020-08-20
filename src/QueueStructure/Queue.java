@@ -29,7 +29,7 @@ public class Queue<T> {
 //        }
 //    }
 
-    public void add(T item){
+    public void add(T item){ // enqueue
         Node<T> n = new Node<T>(item);
 
         if(first == null){
@@ -56,7 +56,7 @@ public class Queue<T> {
 //        return data;
 //    }
 
-    public T remove(){
+    public T remove(){ // dequeue
         T data;
 
         if(first != null){

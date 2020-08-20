@@ -6,6 +6,14 @@ import java.util.LinkedList;
 import java.util.Stack;
 
 public class Graph {
+    Node[] nodes;
+    Graph(int size){
+        nodes = new Node[size];
+        for(int i = 0; i < size; i++){
+            nodes[i] = new Node(i);
+        }
+    }
+
     class Node{
         int data;
         LinkedList<Node> adjacent;
@@ -15,14 +23,6 @@ public class Graph {
             this.data = data;
             this.marked = false;
             adjacent = new LinkedList<Node>();
-        }
-    }
-
-    Node[] nodes;
-    Graph(int size){
-        nodes = new Node[size];
-        for(int i = 0; i < size; i++){
-            nodes[i] = new Node(i);
         }
     }
 
@@ -66,22 +66,22 @@ public class Graph {
     void bfs(int index) {
         Node root = nodes[index];
         Queue<Node> queue = new Queue<Node>();
-        queue.enqueue(root);
+        queue.add(root);
         root.marked = true;
 
         while(!queue.isEmpty()){
-            Node r = queue.dequeue();
+            Node r = queue.remove();
             for(Node n : r.adjacent){
                 if(n.marked == false){
                     n.marked = true;
-                    queue.enqueue(n);
+                    queue.add(n);
                 }
             }
+            visit(r);
         }
-        visit(r);
     }
 
-    void dfsR(Node r){
+    void dfsR(Node r){ // dfs - Recursive
         if(r == null) return;
         r.marked = true;
         visit(r);
